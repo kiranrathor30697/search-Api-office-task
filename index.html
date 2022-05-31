@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search API</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </head>
+    <body>
+        <input type="text" placeholder="Search" id="search" name="search" onkeyup="hendleChange()" value="" /><br /><br />
+        <div id="getval"></div>
+        <!-- <button onclick="HandleClick()">Click</button> -->
+        <script>
+            let hendleChange = ()=>{
+                // console.log("ok");
+                var getValue = document.getElementById('search').value;
+                console.log(getValue);
+                
+                try {    
+                   let x = axios.post('http://31d6-122-168-80-183.ngrok.io/search',{search:getValue})
+                      .then(res=>{
+                       let arr = (res?.data);
+                       console.log(arr);
+                    //    console.log(typeof(arr));
+
+                        
+                       arr.map((cv,idx,arr)=>{
+                        document.getElementById('getval').innerHTML = " paragraph :-" +cv.paragraph;
+                        // document.getElementById('getval').innerHTML = " id :-" + cv.id+"<br />" + " first Color :- " + cv.colorOne+"<br />" + " second color :- " + cv.colorTwo +"<br />" +  " image :- " + cv.image+"<br />" + " paragraph :-" +cv.paragraph+"<br />"+" some Text "+cv.someText;
+
+                       });
+                       return res;
+                   });
+                //    let y = x.then(function(data){
+                //     data.data.map(cv=>{
+                //         console.log(cv)
+                //     })
+                //     console.log(y);
+                //    })
+                    
+ 
+                } catch (error) {
+                    console.log(error);    
+                }
+            }
+        </script>
+    </body>
+</html>
+
+
+<!--  window.localStorage.setItem('key',getValue); -->
